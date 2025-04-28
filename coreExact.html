@@ -1,5 +1,6 @@
 ---
 ---
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +13,10 @@
     <meta property="og:title" content="Densest Subgraph Discovery" />
     <meta property="og:locale" content="en_US" />
     <link rel="canonical" href="https://advsinha17.github.io/DAAWebpage/" />
-    <meta property="og:url" content="https://advsinha17.github.io/DAAWebpage/" />
+    <meta
+      property="og:url"
+      content="https://advsinha17.github.io/DAAWebpage/"
+    />
     <meta property="og:site_name" content="Densest Subgraph Discovery" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
@@ -74,7 +78,7 @@ The following 3 algorithms were implemented to enumerate the maximal cliques in 
           <br />
 
           <div align="center" class="container">
-            <img src="cliques.png" alt="Site Logo" class="logo" width="100px" />
+            <img src="graph.png" alt="Site Logo" class="logo" width="100px" />
           </div>
 
           <h1 style="font-size: 3rem" align="center">
@@ -92,7 +96,7 @@ The following 3 algorithms were implemented to enumerate the maximal cliques in 
                 align-items: center;
               "
             >
-              li style="display: inline; margin: 0 10px">
+              <li style="display: inline; margin: 0 10px">
                 <a
                   href="/DAAWebpage/"
                   style="text-decoration: none; font-weight: semi-bold"
@@ -133,122 +137,152 @@ The following 3 algorithms were implemented to enumerate the maximal cliques in 
           <br />
 
           <h1 align="center">Core Exact Algorithm</h1>
-            <p align="center" style="padding-left: 1rem; padding-top: 5px">
-              📁
-              <a href="https://arxiv.org/pdf/1906.00341"
-                >Paper Link</a
-              >
-            </p>
+          <p align="center" style="padding-left: 1rem; padding-top: 5px">
+            📁
+            <a href="https://arxiv.org/pdf/1906.00341">Paper Link</a>
+          </p>
 
           <h2 align="center">Algorithm Description</h2>
-          
 
-          <p align = "center" class="algoText">
-          The Exact algorithm makes use of binary search to solve a maximum flow problem to find the subgraph with the highest h-clique density in a given graph G. 
-          The algorithm takes a graph G(V, E) and the set of all h-cliques of the graph as input. In our implementation, we use a modified version of the Bron-Kerbosch 
-          Algorithm from Assignment 1 to find all h-cliques in a given graph. The Exact algorithm also requires the clique degrees of each vertex, which we calculate from the set of h-cliques. 
-          The clique degree of a vertex is the number of h-cliques the vertex is a part of. 
-          <p/>
-          <p align = "center" class="algoText">
-          The Exact algorithm begins with initializing the lower bound of the binary search to 0 and the upper bound to the maximum of the clique degrees of all vertices. 
-          The algorithm then finds the set of all (h - 1)-cliques in the graph, once again making use of the Bron-Kerbosch algorithm. 
-          The algorithm then finds the densest subgraph D using binary search. In each binary search iteration, it calculates a value α 
-          as the average of the lower and upper bounds and tries to find a subgraph with density greater than α. To do this, it constructs 
-          a flow network and computes the minimum st-cut of the flow network. We compute this minimum st-cut using the Ford-Fulkerson algorithm for maximum flow. 
+          <p align="center" class="algoText">
+            The Core Exact algorithm aims to optimize the Exact algorithm by
+            reducing the search space of the binary search. The authors of the
+            paper present tighter upper and lower bounds on the maximum h-clique
+            density for a given graph G. These bounds involve finding the (k,
+            Ѱ)-cores in the graph. Given a graph G, an integer k (k ≥ 0), and an
+            h-clique Ѱ, the (k, Ѱ)-core, denoted by Rₖ is the largest subgraph
+            of G such that for all v 𝞊 Rₖ, the clique degree of v w.r.t Ѱ ≥ k.
+            Rₖ is then said to have order k. The clique core number of a vertex
+            v is defined as the highest order of a (k, Ѱ)-core containing v.
           </p>
-          <p align = "center" class="algoText">
-          To construct the flow network, we first collect all the nodes of the network, which include the following:
-            <ul>
-                <li>All the vertices in V.</li>
-                <li>A source node s and a sink node t.</li>
-                <li>Each (h - 1)-clique of the graph G.</li>
-            </ul>
-        </p>
-         <p align = "center" class="algoText">
-        It then adds edges to these nodes with the following capacities:
-        <ul>
-            <li>For each vertex v 𝞊 V, add an edge from source s to vertex v with a capacity equal to the clique degree of v.</li>
-            <li>For each vertex v 𝞊 V, add an edge from vertex v to sink t with a capacity equal to the product of alpha and the size of an h-clique. </li>
-            <li>For each (h - 1)-clique Ѱ, for each vertex v 𝞊 Ѱ, add an edge from Ѱ to v with a capacity of +∞.</li>
-            <li>For each (h - 1)-clique Ѱ, for each vertex v 𝞊 V, if Ѱ and v form an h-clique, add an edge from v to Ѱ with a capacity of 1.</li>
 
-        </ul>
-        </p>
-        <p align = "center" class="algoText"></p>
-       Once it finds the minimum st-cut of this flow network, it checks if the cut S only contains the source vertex. If it does the upper bound is updated to α. 
-       Otherwise, the lower bound is updated to α and the densest subgraph D is updated to be all vertices in S other than the source node. 
-       This binary search algorithm terminated when the gap between the upper and lower bounds is less than 1 (n  (n -1)), where n is the number of vertices in the graph.
-
-        The psuedocode for the Bron-Kerbosch pivoting algorithm is as follows:
-        </p>
-
-          <pre class="codeBlock" style="padding-left: 0;">
+          <p />
+          <p align="center" class="algoText">
+            To find the clique core numbers of each vertex the authors present a
+            (k, Ѱ)-core decomposition algorithm. The algorithm involves finding
+            the h-clique degrees of each vertex in the graph. We then sort the
+            vertices in increasing order of clique degree. Next, we recursively
+            remove the vertex v whose clique- degree is the smallest. In each
+            iteration, we record v’s clique-core number, decrease the
+            clique-degrees of vertices in v’s clique instances as removing v
+            causes the deletion of some clique instances, update G, and re-sort
+            the vertices. Each time we remove a vertex, we get a new residual
+            graph which we will require for the pruning steps introduced by the
+            authors.
+          </p>
+          <p align="center" class="algoText">
+            To find tight upper and lower bounds for the binary search, the
+            authors introduce a pruning step. The first step of this pruning
+            involves finding the maximum h-clique density, p’, of all the
+            residual subgraphs we find while performing core decomposition. The
+            authors prove that the densest subgraph must belong in the (k’,
+            Ѱ)-core, where k’ = ceil(p’).
+          </p>
+          <p align="center" class="algoText">
+            The next step of pruning involves finding the maximum of the
+            h-clique densities, p’’, of each connected component in the (k’,
+            Ѱ)-core. If ceil(p’’) > k’ we update k’ to k’’ = ceil(p’’) and the
+            densest subgraph is in the (k’’, Ѱ)-core. After locating the CDS in
+            a connected component C(VC, EC), we can change the stopping
+            criterion of binary search to “u−l< 1/ |VC|(|VC |−1)”. The authors
+            also prove that the value of α for the binary search must be bounded
+            between kmax/|VѰ| and kmax, where kmax is the maximum value k takes
+            for the graph.
+          </p>
+          <p align="center" class="algoText">
+            With these optimizations, the authors present the algorithm Core
+            Exact which takes as input a graph(V, E). It begins by performing
+            core decomposition on the graph and locating the (k’’, Ѱ)-core using
+            the pruning criteria provided above. It then initializes initialize
+            C ← ∅, D ← ∅, U ← ∅, l ← p’’ and u ← kmax. Next, it finds all the
+            connected components of (k’’, Ѱ)-core and puts them in C. It then
+            iterates over all the connected components in C. If the current
+            lower bound l>k’’, we replace C with the core which has a higher
+            clique-core number and is contained by C. Next, we build a flow
+            network in the same way as we did in Algorithm 1 (Exact) and check
+            if l is a feasible lower bound.
+          </p>
+          <p align="center" class="algoText">
+            Once the binary search is complete, it checks if the h-clique
+            density of the current subgraph induced by U is more than the
+            h-clique density of the current densest subgraph D. If it is, we
+            update the current densest subgraph to U. After iterating over all
+            the connected components, it returns D as the densest subgraph. The
+            psuedocode for the Bron-Kerbosch pivoting algorithm is as follows:
+          </p>
+          <pre class="codeBlock" style="padding-left: 0">
             <code>
     <b>Input:</b> G(V, E), Ψ(V<sub>Ψ</sub>, E<sub>Ψ</sub>);
     <b>Output:</b> The CDS D(V<sub>D</sub>, E<sub>D</sub>);
-     initialize l ← 0, u ← max(degG(v, Ψ));
-    initialize Λ ←all the instances of (h–1)-clique in G, D ← ∅;
-    while u − l ≥ 1 / (n(n-1)) do
+    perform core decomposition using Algorithm 3;
+    locate the (k'', Ψ)-core using pruning criteria;
+    initialize C ← ∅, D ← ∅, U ← ∅, l ← ρ'', u ← kmax;
+    put all the connected components of (k'', Ψ)-core into C;
+    for each connected component C(V<sub>C</sub>, E<sub>C</sub>) ∈ C do
+    if l>k'' then C(V<sub>C</sub>, E<sub>C</sub>) ← C ∩ (ceil(l), Ψ)-core;
+    build a flow network F(V<sub>F</sub>, E<sub>F</sub>) by lines 5-15 of Algorithm 1;
+    find minimum st-cut (S, T) from F(V<sub>F</sub>, E<sub>F</sub>);
+    if S=∅ then continue;
+    while u − l ≥ 1/|V<sub>C</sub>|(|V<sub>C</sub>|−1) do
         α ← (l+u)/2;
-        VF ← {s} ∪ V ∪ Λ ∪ {t}; // build a flow network
-        for each vertex v ∈ V do
-            add an edge s→v with capacity degG(v, Ψ);
-            add an edge v→t with capacity α|VΨ|;
-        for each (h–1)-clique ψ ∈ Λ do
-            for each vertex v ∈ ψ do
-                add an edge ψ→v with capacity +∞;
-        for each (h–1)-clique ψ ∈ Λ do
-            for each vertex v ∈ V do
-                if ψ and v form an h-clique then
-                    add an edge v→ψ with capacity 1;
-        find minimum st-cut (S, T) from the flow network F(V<sub>F</sub> , E<sub>F</sub>);
+        build F(VF , EF ) by lines 5-15 of Algorithm 1;
+        find minimum st-cut (S, T) from F(V<sub>F</sub>, E<sub>F</sub>);
         if S={s} then u ← α;
-        else l ← α, D ← the subgraph induced by S\{s};
+        else
+            if α> ceil(l) then remove some vertices from C;
+            l ← α;
+            U ← S\{s};
+    if ρ(G[U], Ψ) > ρ(D, Ψ) then D ← G[U];
     return D;
             </code>
           </pre>
-            <p align="center" class="algoText">
-            Time Complexity of the Algorithm: Given a graph G(V, E) and an h-clique Ψ(V<sub>Ψ</sub>, E<sub>Ψ</sub>), 
-            <b>Exact</b> takes 
-            O(n &middot; (d<sup>-1</sup> choose h-1) + (n|&Lambda;| + min(n, |&Lambda;|)<sup>3</sup>) log n) time 
-            and O(n + |&Lambda;|) space, where &Lambda; is the set of (h-1)-clique instances in G [65].
-            </p>
-
-          <br />
-        
 
           <h2 class="experimental" align="center">
             Implementation details and Experimental Observations
           </h2>
           <p class="algoText" align="center">
-            The algorithm was run on an M1 MacBook Air with 16GB RAM and using the
-            -O3 optimization flag during compilation. The algorithm was run on the
-            CAIDA AS dataset, Autonomous Systems AS-733 dataset, High Energy Physics (ca-HepTh) dataset, and the Netscience dataset, for <b>h = 3, h = 4, and h = 5</b>. The CAIDA AS network took 
-            <b>(2125.04 seconds,)</b>, 
-            the Autonomous Systems AS-733 took <b>(13.40 seconds, 18.19 seconds, 32.65 seconds)</b>, the
-            High Energy Physics (ca-HepTh) network took <b>(33.30 seconds, 64.88 seconds, 744.83 seconds)</b>, and the Netscience dataset took <b>(0.45 seconds, 1.32 seconds, 3.45 seconds)</b> to run the algorithm. The runtimes given as for (h = 3, h = 4, h = 5) respeectively.<br /><br />
-
+            The algorithm was run on an M1 MacBook Air with 16GB RAM and using
+            the -O3 optimization flag during compilation. The algorithm was run
+            on the CAIDA AS dataset, Autonomous Systems AS-733 dataset, High
+            Energy Physics (ca-HepTh) dataset, and the Netscience dataset, for
+            <b>h = 3, h = 4, and h = 5</b>. The CAIDA AS network took
+            <b>(2125.04 seconds,)</b>, the Autonomous Systems AS-733 took
+            <b>(0.105 seconds, 0.126 seconds, 0.201 seconds)</b>, the High
+            Energy Physics (ca-HepTh) network took
+            <b>(0.233 seconds, 0.315 seconds, 0.685 seconds)</b>, and the
+            Netscience dataset took
+            <b>(0.02 seconds, 0.024 seconds, 0.04 seconds)</b> to run the
+            algorithm. The runtimes given as for (h = 3, h = 4, h = 5)
+            respeectively.<br /><br />
           </p>
           <div class="container">
             <h2 align="center">Runtime by Dataset (h = 3)</h2>
-            <div id="runtimeBarChart3" style="width:100%;height:400px;"></div>
+            <div id="runtimeBarChart3" style="width: 100%; height: 400px"></div>
 
             <h2 align="center">Runtime by Dataset (h = 4)</h2>
-            <div id="runtimeBarChart4" style="width:100%;height:400px;"></div>
+            <div id="runtimeBarChart4" style="width: 100%; height: 400px"></div>
 
             <h2 align="center">Runtime by Dataset (h = 5)</h2>
-            <div id="runtimeBarChart5" style="width:100%;height:400px;"></div>
+            <div id="runtimeBarChart5" style="width: 100%; height: 400px"></div>
           </div>
           <p class="algoText" style="padding-bottom: 40px" align="center">
             The graph was stored as an adjacency list using a vector of sets, to
-        allow for efficient search of neighbors of a vertex. All h-cliques and h-1 cliques were pre-computed and stored in a vector of vectors. 
-        To improve efficiency, we also store the indices of all the h-cliques a particular vertex belongs to.
-        To compute the maximum flow and minimum st-cut in the flow network, we use the Ford-Fulkerson algorithm. 
+            allow for efficient search of neighbors of a vertex. All h-cliques
+            and h-1 cliques were pre-computed and stored in a vector of vectors.
+            To improve efficiency, we also store the indices of all the
+            h-cliques a particular vertex belongs to. To compute the maximum
+            flow and minimum st-cut in the flow network, we use the
+            Ford-Fulkerson algorithm.
           </p>
-          <h2 class="experimental" align="center">
-            Algorithm Implementation
-          </h2>
-          <p align="center">🔗 The algorithm implementation and execution instructions can be found <a href="https://github.com/advsinha17/DAA-Assignments/tree/master/Assignment2">here</a>.</p>
+          <h2 class="experimental" align="center">Algorithm Implementation</h2>
+          <p align="center">
+            🔗 The algorithm implementation and execution instructions can be
+            found
+            <a
+              href="https://github.com/advsinha17/DAA-Assignments/tree/master/Assignment2"
+              >here</a
+            >.
+          </p>
           <pre class="codeBlock">
             <code>
 #include &lt;iostream&gt;
@@ -573,55 +607,49 @@ int main(int argc, char* argv[]) {
 </code>
 </pre>
 
+          <script>
+            // Common data
+            const datasets = ["CAIDA AS", "AS-733", "ca-HepTh", "Netscience"];
 
+            // Different runtimes for each h
+            const runtimes_h3 = [1.756, 0.105, 0.233, 0.02];
+            const runtimes_h4 = [3.868, 0.126, 0.315, 0.024];
+            const runtimes_h5 = [4000.7, 0.201, 0.685, 0.04];
 
+            function createPlot(divId, runtimes) {
+              const data = [
+                {
+                  x: datasets,
+                  y: runtimes,
+                  type: "bar",
+                  marker: {
+                    color: "blue",
+                  },
+                },
+              ];
 
+              const layout = {
+                title: "", // Title is handled separately above the div
+                xaxis: {
+                  title: "Dataset Name",
+                  tickangle: -45,
+                },
+                yaxis: {
+                  title: "Runtime (s)",
+                },
+                margin: { b: 100, t: 50 },
+              };
 
-<script>
-  // Common data
-  const datasets = ["CAIDA AS", "AS-733", "ca-HepTh", "Netscience"];
+              Plotly.newPlot(divId, data, layout);
+            }
 
-  // Different runtimes for each h
-  const runtimes_h3 = [2125.04, 13.40, 33.30, ];
-  const runtimes_h4 = [3000.5, 18.19, 64.88, 1.32];
-  const runtimes_h5 = [4000.7, 32.65, 744.83, 3.45];
-
-  function createPlot(divId, runtimes) {
-    const data = [
-      {
-        x: datasets,
-        y: runtimes,
-        type: "bar",
-        marker: {
-          color: "blue",
-        },
-      },
-    ];
-
-    const layout = {
-      title: "",  // Title is handled separately above the div
-      xaxis: {
-        title: "Dataset Name",
-        tickangle: -45,
-      },
-      yaxis: {
-        title: "Runtime (s)",
-      },
-      margin: { b: 100, t: 50 },
-    };
-
-    Plotly.newPlot(divId, data, layout);
-  }
-
-  // Create the three plots
-  createPlot("runtimeBarChart3", runtimes_h3);
-  createPlot("runtimeBarChart4", runtimes_h4);
-  createPlot("runtimeBarChart5", runtimes_h5);
-</script>
-
+            // Create the three plots
+            createPlot("runtimeBarChart3", runtimes_h3);
+            createPlot("runtimeBarChart4", runtimes_h4);
+            createPlot("runtimeBarChart5", runtimes_h5);
+          </script>
         </div>
       </div>
     </main>
   </body>
 </html>
-
