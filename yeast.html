@@ -1,0 +1,287 @@
+---
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Densest Subgraph Discovery</title>
+    <meta name="generator" content="Jekyll v4.4.1" />
+    <meta property="og:title" content="Densest Subgraph Discovery" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://advsinha17.github.io/DAAWebpage/" />
+    <meta
+      property="og:url"
+      content="https://advsinha17.github.io/DAAWebpage/"
+    />
+    <meta property="og:site_name" content="Densest Subgraph Discovery" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Densest Subgraph Discovery" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "headline": "Densest Subgraph Discovery",
+        "name": "Densest Subgraph Discovery",
+        "url": "https://advsinha17.github.io/DAAWebpage/"
+      }
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/DAAWebpage/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://advsinha17.github.io/DAAWebpage/feed.xml"
+      title="Densest Subgraph Discovery"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/DAAWebpage/"
+          >Design and Analysis of Algorithms - Assignment 2</a
+        >
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home">
+          <!-- # Enumeration of Maximal Cliques
+
+The following 3 algorithms were implemented to enumerate the maximal cliques in a graph:
+
+- [Bron Kerbosch Algorithm](/bka)
+- [Chiba](/chiba)
+- [Tomita](/tomita) -->
+
+          <br />
+          <br />
+          <br />
+
+          <div align="center" class="container">
+            <img src="graph.png" alt="Site Logo" class="logo" width="100px" />
+          </div>
+
+          <h1 style="font-size: 3rem" align="center">
+            Densest Subgraph Discovery
+          </h1>
+          <hr style="border: 0.5px solid #ddd; margin: 10px 0" />
+          <nav class="menu">
+            <ul
+              style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebpage/"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Problem Statement</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebpage/exact"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Exact Algorithm</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebpage/coreExact"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Core Exact Algorithm</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebpage/datasets"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Datasets</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <hr style="border: 0.5px solid #ddd; margin: 10px 0" />
+
+          <br />
+          <br />
+          <br />
+
+          <h1 align="center">Dataset: Yeast Network</h1>
+
+          <div class="mainBody" align="center">
+            <p style="padding-left: 1rem; padding-top: 5px">
+              📁
+              <a href="https://networkrepository.com/bio-yeast.php"
+                >Dataset Link</a
+              >
+            </p>
+            <h2 class="algoDesc">Dataset Description</h2>
+            <p class="algoText">
+              The
+              <a href="https://networkrepository.com/bio-yeast.php"
+                >Yeast Dataset</a
+              >
+              represents a protein-protein interaction (PPI) network in the
+              yeast. The dataset consists of
+              <b>1458 nodes</b> and <b>1948 edges</b>. Each node corresponds to
+              a protein within the yeast organism. An edge between two nodes
+              indicates a physical interaction between the corresponding
+              proteins. The details of the dataset are given in the table
+              below.<br />
+            </p>
+            <div>
+              <table class="dataTable">
+                <thead>
+                  <tr>
+                    <th class="tableHead">Metric</th>
+                    <th class="tableHead">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="tableData">Nodes</td>
+                    <td class="tableData">1458</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Edges</td>
+                    <td class="tableData">1948</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Density</td>
+                    <td class="tableData">0.00183401</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Maximum Degree</td>
+                    <td class="tableData">56</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Minimum Degree</td>
+                    <td class="tableData">1</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Number of triangles</td>
+                    <td class="tableData">618</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Maximum number of triangles</td>
+                    <td class="tableData">18</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Fraction of closed triangles</td>
+                    <td class="tableData">0.0517761</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Maximum k-core</td>
+                    <td class="tableData">6</td>
+                  </tr>
+                  <tr>
+                    <td class="tableData">Lower bound of Maximum Clique</td>
+                    <td class="tableData">6</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="tableCapt">CAIDA AS Statistics</p>
+            </div>
+            <h2 class="experimental">
+              Density Distribution, Number of Cliques and Number of Vertices in
+              Densest Subgraphs
+            </h2>
+            <p class="algoText">
+              For 3-cliques (h = 3), the densest subgraph in Yeast has an
+              h-clique density of 3.71429, with 7 vertices and 26 cliques. For
+              4-cliques (h = 4), the densest subgraph has an h-clique density of
+              2.714, with 7 vertices and 19 cliques. For 5-cliques (h = 5), the
+              densest subgraph has an h-clique density of 1, with 7 vertices and
+              7 cliques.
+            </p>
+            <div id="densityChart" style="width: 600px; height: 400px"></div>
+            <div id="vertexChart" style="width: 600px; height: 400px"></div>
+            <div id="cliqueChart" style="width: 600px; height: 400px"></div>
+            <script>
+              const hValues = [3, 4, 5];
+
+              const densityData = [3.71429, 2.714, 1];
+              const vertexCounts = [7, 7, 7];
+              const cliqueCounts = [26, 19, 7];
+
+              function createPlot(divId, yData, graphTitle, yAxisTitle) {
+                const data = [
+                  {
+                    x: hValues.map((h) => `h = ${h}`),
+                    y: yData,
+                    type: "bar",
+                    marker: {
+                      color: "blue",
+                    },
+                  },
+                ];
+
+                const layout = {
+                  title: graphTitle,
+                  xaxis: {
+                    title: "h value",
+                  },
+                  yaxis: {
+                    title: yAxisTitle,
+                  },
+                  margin: { b: 80, t: 100 },
+                };
+
+                Plotly.newPlot(divId, data, layout);
+              }
+
+              createPlot(
+                "densityChart",
+                densityData,
+                "Density vs h",
+                "Density"
+              );
+              createPlot(
+                "vertexChart",
+                vertexCounts,
+                "Number of Vertices vs h",
+                "Number of Vertices"
+              );
+              createPlot(
+                "cliqueChart",
+                cliqueCounts,
+                "Number of Cliques vs h",
+                "Number of Cliques"
+              );
+            </script>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

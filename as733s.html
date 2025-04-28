@@ -65,7 +65,7 @@
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
         <div class="home">
-          <!-- # Densest Subgraph Discovery
+          <!-- # Enumeration of Maximal Cliques
 
 The following 3 algorithms were implemented to enumerate the maximal cliques in a graph:
 
@@ -136,80 +136,100 @@ The following 3 algorithms were implemented to enumerate the maximal cliques in 
           <br />
           <br />
 
-          <h1 align="center">Datasets</h1>
+          <h1 align="center">Dataset:Autonomous systems AS-733 (Small)</h1>
 
-          <p align="center">
-            CAIDA AS Relationships, Autonomous Systems AS-733, High Energy
-            Physics (ca-HepTh) dataset, and the Netscience datasets are widely
-            used in research on graph algorithms. Navigate to the pages below to
-            explore the datasets used with the graph algorithms.
-          </p>
+          <div class="mainBody" align="center">
+            <p style="padding-left: 1rem; padding-top: 5px">
+              📁
+              <a href="https://snap.stanford.edu/data/as-733.html"
+                >Dataset Link</a
+              >
+            </p>
+            <h2 class="algoDesc">Dataset Description</h2>
+            <p class="algoText">
+              The
+              <a href="https://snap.stanford.edu/data/as-733.html"
+                >Autonomous systems AS-733 (Small)</a
+              >
+              dataset consists of BGP logs of a communication network of AS
+              exchanging traffic flows with its neighbours. The nodes are
+              individual ASes (Autonomous System), and the edge between node i
+              to j signifies that ith AS communicates with the jth AS. This
+              dataset exhibits addition and deletion of nodes and edges over
+              time. This dataset consists of
+              <b>1486 nodes</b> and <b>3297 edges</b>. This is a smaller version of the
+              Autonomous systems AS-733 (Large) dataset.
+              <br />
+            </p>
+            </div>
+            <h2 class="experimental">
+              Density Distribution, Number of Cliques and Number of Vertices in
+              Densest Subgraphs
+            </h2>
+            <p class="algoText">
+              For 3-cliques (h = 3), the densest subgraph in AS-733 has an
+              h-clique density of 29.7586, with 29 vertices and 863 cliques.
+              For 4-cliques (h = 4), the densest subgraph has an h-clique
+              density of 63.5357, with 28 vertices and 1779 cliques. For
+              5-cliques (h = 5), the densest subgraph has an h-clique density of
+              83.8462, with 26 vertices and 2180 cliques.
+            </p>
+            <div id="densityChart" style="width: 600px; height: 400px"></div>
+            <div id="vertexChart" style="width: 600px; height: 400px"></div>
+            <div id="cliqueChart" style="width: 600px; height: 400px"></div>
+            <script>
+              const hValues = [3, 4, 5];
 
-          <nav class="menu">
-            <ul
-              style="
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              "
-            >
-              <li style="display: inline; margin: 0 10px">
-                <a
-                  href="/DAAWebpage/yeast"
-                  style="text-decoration: none; font-weight: semi-bold"
-                  >Yeast</a
-                >
-              </li>
-              <li style="display: inline; margin: 0 10px">|</li>
-              <li style="display: inline; margin: 0 10px">
-                <a
-                  href="/DAAWebpage/caida"
-                  style="text-decoration: none; font-weight: semi-bold"
-                  >CAIDA AS Relationships</a
-                >
-              </li>
+              const densityData = [29.7586, 63.5357, 83.8462];
+              const vertexCounts = [29, 28, 26];
+              const cliqueCounts = [863, 1779, 2180];
 
-              <li style="display: inline; margin: 0 10px">|</li>
-              <li style="display: inline; margin: 0 10px">
-                <a
-                  href="/DAAWebpage/as733l"
-                  style="text-decoration: none; font-weight: semi-bold"
-                  >Autonomous Systems AS-733 (Large)</a
-                >
-              </li>
-              <li style="display: inline; margin: 0 10px">|</li>
-              <li style="display: inline; margin: 0 10px">
-                <a
-                  href="/DAAWebpage/as733s"
-                  style="text-decoration: none; font-weight: semi-bold"
-                  >Autonomous Systems AS-733 (Small)</a
-                >
-              </li>
-              <li style="display: inline; margin: 0 10px">|</li>
-              <li style="display: inline; margin: 0 10px">
-                <a
-                  href="/DAAWebpage/hepth"
-                  style="text-decoration: none; font-weight: semi-bold"
-                  >High Energy Physics (ca-HepTh)</a
-                >
-              </li>
-              <li style="display: inline; margin: 0 10px">|</li>
-              <li style="display: inline; margin: 0 10px">
-                <a
-                  href="/DAAWebpage/netscience"
-                  style="text-decoration: none; font-weight: semi-bold"
-                  >Netscience</a
-                >
-              </li>
-            </ul>
-          </nav>
-          <br />
-          <br />
-          <br />
-          <br />
+              function createPlot(divId, yData, graphTitle, yAxisTitle) {
+                const data = [
+                  {
+                    x: hValues.map((h) => `h = ${h}`),
+                    y: yData,
+                    type: "bar",
+                    marker: {
+                      color: "blue",
+                    },
+                  },
+                ];
+
+                const layout = {
+                  title: graphTitle,
+                  xaxis: {
+                    title: "h value",
+                  },
+                  yaxis: {
+                    title: yAxisTitle,
+                  },
+                  margin: { b: 80, t: 100 },
+                };
+
+                Plotly.newPlot(divId, data, layout);
+              }
+
+              createPlot(
+                "densityChart",
+                densityData,
+                "Density vs h",
+                "Density"
+              );
+              createPlot(
+                "vertexChart",
+                vertexCounts,
+                "Number of Vertices vs h",
+                "Number of Vertices"
+              );
+              createPlot(
+                "cliqueChart",
+                cliqueCounts,
+                "Number of Cliques vs h",
+                "Number of Cliques"
+              );
+            </script>
+          </div>
         </div>
       </div>
     </main>

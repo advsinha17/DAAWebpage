@@ -243,11 +243,15 @@ The following 3 algorithms were implemented to enumerate the maximal cliques in 
           <p class="algoText" align="center">
             The algorithm was run on an M1 MacBook Air with 16GB RAM and using
             the -O3 optimization flag during compilation. The algorithm was run
-            on the CAIDA AS dataset, Autonomous Systems AS-733 dataset, High
-            Energy Physics (ca-HepTh) dataset, and the Netscience dataset, for
-            <b>h = 3, h = 4, and h = 5</b>. The CAIDA AS network took
-            <b>(2.044 seconds, 3.615 seconds, 14.341 seconds)</b>, the
-            Autonomous Systems AS-733 took
+            on the Yeast dataset, CAIDA AS dataset, Autonomous Systems AS-733
+            small dataset, Autonomous Systems AS-733 large dataset, High Energy
+            Physics (ca-HepTh) dataset, and the Netscience dataset, for
+            <b>h = 3, h = 4, and h = 5</b>. The Yeast network took
+            <b>(0.013 seconds, 0.012 seconds, 0.013 seconds)</b>, the CAIDA AS
+            network took <b>(2.044 seconds, 3.615 seconds, 14.341 seconds)</b>,
+            the Autonomous Systems AS-733 small took
+            <b>(0.021 seconds, 0.034 seconds, 0.034 seconds)</b>, the Autonomous
+            Systems AS-733 took
             <b>(0.098 seconds, 0.116 seconds, 0.188 seconds)</b>, the High
             Energy Physics (ca-HepTh) network took
             <b>(0.286 seconds, 0.382 seconds, 0.664 seconds)</b>, and the
@@ -1065,12 +1069,19 @@ int main(int argc, char* argv[]) {
 
           <script>
             // Common data
-            const datasets = ["CAIDA AS", "AS-733", "ca-HepTh", "Netscience"];
+            const datasets = [
+              "Yeast",
+              "CAIDA AS",
+              "AS-733 small",
+              "AS-733 large",
+              "ca-HepTh",
+              "Netscience",
+            ];
 
             // Different runtimes for each h
-            const runtimes_h3 = [2.044, 0.098, 0.286, 0.017];
-            const runtimes_h4 = [3.615, 0.116, 0.382, 0.022];
-            const runtimes_h5 = [14.341, 0.188, 0.664, 0.037];
+            const runtimes_h3 = [0.013, 2.044, 0.021, 0.098, 0.286, 0.017];
+            const runtimes_h4 = [0.012, 3.615, 0.034, 0.116, 0.382, 0.022];
+            const runtimes_h5 = [0.013, 14.341, 0.034, 0.188, 0.664, 0.037];
 
             function createPlot(divId, runtimes) {
               const data = [
