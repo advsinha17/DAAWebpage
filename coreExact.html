@@ -1,0 +1,627 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Densest Subgraph Discovery</title>
+    <meta name="generator" content="Jekyll v4.4.1" />
+    <meta property="og:title" content="Densest Subgraph Discovery" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://advsinha17.github.io/DAAWebPage/" />
+    <meta property="og:url" content="https://advsinha17.github.io/DAAWebPage/" />
+    <meta property="og:site_name" content="Densest Subgraph Discovery" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Densest Subgraph Discovery" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "headline": "Densest Subgraph Discovery",
+        "name": "Densest Subgraph Discovery",
+        "url": "https://advsinha17.github.io/DAAWebPage/"
+      }
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/DAAWebPage/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://advsinha17.github.io/DAAWebPage/feed.xml"
+      title="Densest Subgraph Discovery"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/DAAWebPage/"
+          >Design and Analysis of Algorithms - Assignment 2</a
+        >
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home">
+          <!-- # Densest Subgraph Discovery
+
+The following 3 algorithms were implemented to enumerate the maximal cliques in a graph:
+
+- [Bron Kerbosch Algorithm](/bka)
+- [Chiba](/chiba)
+- [Tomita](/tomita) -->
+
+          <br />
+          <br />
+          <br />
+
+          <div align="center" class="container">
+            <img src="cliques.png" alt="Site Logo" class="logo" width="100px" />
+          </div>
+
+          <h1 style="font-size: 3rem" align="center">
+            Densest Subgraph Discovery
+          </h1>
+          <hr style="border: 0.5px solid #ddd; margin: 10px 0" />
+          <nav class="menu">
+            <ul
+              style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebPage/"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Problem Statement</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebPage/exact"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Exact Algorithm</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebPage/coreExact"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Core Exact Algorithm</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAWebPage/datasets"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Datasets</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <hr style="border: 0.5px solid #ddd; margin: 10px 0" />
+
+          <br />
+          <br />
+          <br />
+
+          <h1 align="center">Core Exact Algorithm</h1>
+            <p align="center" style="padding-left: 1rem; padding-top: 5px">
+              📁
+              <a href="https://arxiv.org/pdf/1906.00341"
+                >Paper Link</a
+              >
+            </p>
+
+          <h2 align="center">Algorithm Description</h2>
+          
+
+          <p align = "center" class="algoText">
+          The Exact algorithm makes use of binary search to solve a maximum flow problem to find the subgraph with the highest h-clique density in a given graph G. 
+          The algorithm takes a graph G(V, E) and the set of all h-cliques of the graph as input. In our implementation, we use a modified version of the Bron-Kerbosch 
+          Algorithm from Assignment 1 to find all h-cliques in a given graph. The Exact algorithm also requires the clique degrees of each vertex, which we calculate from the set of h-cliques. 
+          The clique degree of a vertex is the number of h-cliques the vertex is a part of. 
+          <p/>
+          <p align = "center" class="algoText">
+          The Exact algorithm begins with initializing the lower bound of the binary search to 0 and the upper bound to the maximum of the clique degrees of all vertices. 
+          The algorithm then finds the set of all (h - 1)-cliques in the graph, once again making use of the Bron-Kerbosch algorithm. 
+          The algorithm then finds the densest subgraph D using binary search. In each binary search iteration, it calculates a value α 
+          as the average of the lower and upper bounds and tries to find a subgraph with density greater than α. To do this, it constructs 
+          a flow network and computes the minimum st-cut of the flow network. We compute this minimum st-cut using the Ford-Fulkerson algorithm for maximum flow. 
+          </p>
+          <p align = "center" class="algoText">
+          To construct the flow network, we first collect all the nodes of the network, which include the following:
+            <ul>
+                <li>All the vertices in V.</li>
+                <li>A source node s and a sink node t.</li>
+                <li>Each (h - 1)-clique of the graph G.</li>
+            </ul>
+        </p>
+         <p align = "center" class="algoText">
+        It then adds edges to these nodes with the following capacities:
+        <ul>
+            <li>For each vertex v 𝞊 V, add an edge from source s to vertex v with a capacity equal to the clique degree of v.</li>
+            <li>For each vertex v 𝞊 V, add an edge from vertex v to sink t with a capacity equal to the product of alpha and the size of an h-clique. </li>
+            <li>For each (h - 1)-clique Ѱ, for each vertex v 𝞊 Ѱ, add an edge from Ѱ to v with a capacity of +∞.</li>
+            <li>For each (h - 1)-clique Ѱ, for each vertex v 𝞊 V, if Ѱ and v form an h-clique, add an edge from v to Ѱ with a capacity of 1.</li>
+
+        </ul>
+        </p>
+        <p align = "center" class="algoText"></p>
+       Once it finds the minimum st-cut of this flow network, it checks if the cut S only contains the source vertex. If it does the upper bound is updated to α. 
+       Otherwise, the lower bound is updated to α and the densest subgraph D is updated to be all vertices in S other than the source node. 
+       This binary search algorithm terminated when the gap between the upper and lower bounds is less than 1 (n  (n -1)), where n is the number of vertices in the graph.
+
+        The psuedocode for the Bron-Kerbosch pivoting algorithm is as follows:
+        </p>
+
+          <pre class="codeBlock" style="padding-left: 0;">
+            <code>
+    <b>Input:</b> G(V, E), Ψ(V<sub>Ψ</sub>, E<sub>Ψ</sub>);
+    <b>Output:</b> The CDS D(V<sub>D</sub>, E<sub>D</sub>);
+     initialize l ← 0, u ← max(degG(v, Ψ));
+    initialize Λ ←all the instances of (h–1)-clique in G, D ← ∅;
+    while u − l ≥ 1 / (n(n-1)) do
+        α ← (l+u)/2;
+        VF ← {s} ∪ V ∪ Λ ∪ {t}; // build a flow network
+        for each vertex v ∈ V do
+            add an edge s→v with capacity degG(v, Ψ);
+            add an edge v→t with capacity α|VΨ|;
+        for each (h–1)-clique ψ ∈ Λ do
+            for each vertex v ∈ ψ do
+                add an edge ψ→v with capacity +∞;
+        for each (h–1)-clique ψ ∈ Λ do
+            for each vertex v ∈ V do
+                if ψ and v form an h-clique then
+                    add an edge v→ψ with capacity 1;
+        find minimum st-cut (S, T) from the flow network F(V<sub>F</sub> , E<sub>F</sub>);
+        if S={s} then u ← α;
+        else l ← α, D ← the subgraph induced by S\{s};
+    return D;
+            </code>
+          </pre>
+            <p align="center" class="algoText">
+            Time Complexity of the Algorithm: Given a graph G(V, E) and an h-clique Ψ(V<sub>Ψ</sub>, E<sub>Ψ</sub>), 
+            <b>Exact</b> takes 
+            O(n &middot; (d<sup>-1</sup> choose h-1) + (n|&Lambda;| + min(n, |&Lambda;|)<sup>3</sup>) log n) time 
+            and O(n + |&Lambda;|) space, where &Lambda; is the set of (h-1)-clique instances in G [65].
+            </p>
+
+          <br />
+        
+
+          <h2 class="experimental" align="center">
+            Implementation details and Experimental Observations
+          </h2>
+          <p class="algoText" align="center">
+            The algorithm was run on an M1 MacBook Air with 16GB RAM and using the
+            -O3 optimization flag during compilation. The algorithm was run on the
+            CAIDA AS dataset, Autonomous Systems AS-733 dataset, High Energy Physics (ca-HepTh) dataset, and the Netscience dataset, for <b>h = 3, h = 4, and h = 5</b>. The CAIDA AS network took 
+            <b>(2125.04 seconds,)</b>, 
+            the Autonomous Systems AS-733 took <b>(13.40 seconds, 18.19 seconds, 32.65 seconds)</b>, the
+            High Energy Physics (ca-HepTh) network took <b>(33.30 seconds, 64.88 seconds, 744.83 seconds)</b>, and the Netscience dataset took <b>(0.45 seconds, 1.32 seconds, 3.45 seconds)</b> to run the algorithm. The runtimes given as for (h = 3, h = 4, h = 5) respeectively.<br /><br />
+
+          </p>
+          <div class="container">
+            <h2 align="center">Runtime by Dataset (h = 3)</h2>
+            <div id="runtimeBarChart3" style="width:100%;height:400px;"></div>
+
+            <h2 align="center">Runtime by Dataset (h = 4)</h2>
+            <div id="runtimeBarChart4" style="width:100%;height:400px;"></div>
+
+            <h2 align="center">Runtime by Dataset (h = 5)</h2>
+            <div id="runtimeBarChart5" style="width:100%;height:400px;"></div>
+          </div>
+          <p class="algoText" style="padding-bottom: 40px" align="center">
+            The graph was stored as an adjacency list using a vector of sets, to
+        allow for efficient search of neighbors of a vertex. All h-cliques and h-1 cliques were pre-computed and stored in a vector of vectors. 
+        To improve efficiency, we also store the indices of all the h-cliques a particular vertex belongs to.
+        To compute the maximum flow and minimum st-cut in the flow network, we use the Ford-Fulkerson algorithm. 
+          </p>
+          <h2 class="experimental" align="center">
+            Algorithm Implementation
+          </h2>
+          <p align="center">🔗 The algorithm implementation and execution instructions can be found <a href="https://github.com/advsinha17/DAA-Assignments/tree/master/Assignment2">here</a>.</p>
+          <pre class="codeBlock">
+            <code>
+#include &lt;iostream&gt;
+#include &lt;unordered_set&gt;
+#include &lt;set&gt;
+#include &lt;fstream&gt;
+using namespace std;
+
+struct Edge {
+    int dest, revIdx;
+    double capacity;
+};
+
+double eps = 1e-14;
+double INF = 1e14;
+
+
+int getDegeneracy(vector&lt;set&lt;int&gt;&gt; &adj, vector&lt;int&gt;& degeneracyOrder, int n) {
+    vector&lt;int&gt; degrees(n);
+    for (int i = 0; i &lt; n; i++) {
+        degrees[i] = adj[i].size();
+    }
+    vector&lt;vector&lt;int&gt;&gt; D(n);
+    for (int i = 0; i &lt; n; i++) {
+        D[degrees[i]].push_back(i);
+    }
+    int i = 0; 
+    int num = 0;
+    int degeneracy = 0;
+    vector&lt;bool&gt; removed(n, false);
+    while (num &lt; n) {
+        while (D[i].empty()) i++;
+        int x = D[i].front();
+        D[i].erase(D[i].begin());
+        degeneracyOrder[num++] = x;
+        degeneracy = max(degeneracy, i);
+        removed[x] = true;
+        for (auto y: adj[x]) {
+            if (!removed[y]) {
+                int oldDegree = degrees[y];
+                degrees[y]--;
+                auto it = find(D[oldDegree].begin(), D[oldDegree].end(), y);
+                if (it!= D[oldDegree].end()) {
+                    D[oldDegree].erase(it);
+                }
+                
+                D[degrees[y]].push_back(y);
+            }
+        }
+        i = 0;
+    }
+    return degeneracy;
+}
+void BronKerboschPivot(vector&lt;int&gt; &P, vector&lt;int&gt; &R, vector&lt;int&gt; &X, vector&lt;set&lt;int&gt;&gt; &adj, int n, int h, vector&lt;vector&lt;int&gt;&gt;& hCliques, vector&lt;int&gt;& cliqueDegrees) {
+    if ((int)R.size() == h) {
+        vector&lt;int&gt; inR(n, 0);
+        int flag = 0;
+        for (auto x: R) {
+            if (inR[x] == 1) {
+                flag = 1;
+                break;
+            }
+            inR[x] = 1;
+        }
+        if (flag == 1) return;
+        hCliques.push_back(R);
+        for (auto x: R) {
+            cliqueDegrees[x]++;
+        }
+        return;
+    }
+    for (auto it = P.begin(); it != P.end();) {
+        int i = *it;
+        vector&lt;int&gt; intersectP;
+        vector&lt;int&gt; intersectX;
+        for (auto y: P) {
+            if (adj[i].find(y) != adj[i].end()) intersectP.push_back(y);
+        }
+        for (auto y: X) {
+            if (adj[i].find(y) != adj[i].end()) intersectX.push_back(y);
+        }
+
+        R.push_back(i);
+        BronKerboschPivot(intersectP, R, intersectX, adj, n, h, hCliques, cliqueDegrees);
+        R.pop_back();
+        X.push_back(i);
+        it = P.erase(it);
+    }
+}
+
+
+void addEdge(vector&lt;vector&lt;Edge&gt;&gt;& graph, int src, int dest, double capacity) {
+    graph[src].push_back({dest, (int)graph[dest].size(), capacity});
+    graph[dest].push_back({src, (int)graph[src].size() - 1, 0.0});
+}
+
+double dfs(vector&lt;vector&lt;Edge&gt;&gt;& graph, int i, int t, double flow, vector&lt;bool&gt;& visited) {
+    if (i == t) return flow;
+    visited[i] = true;
+    for (Edge& e : graph[i]) {
+        if (!visited[e.dest] && e.capacity &gt; eps) {
+            double bottleneck = dfs(graph, e.dest, t, min(flow, e.capacity), visited);
+            if (bottleneck &gt; eps) {
+                e.capacity -= bottleneck;
+                graph[e.dest][e.revIdx].capacity += bottleneck;
+                return bottleneck;
+            }
+        }
+    }
+    return 0.0;
+}
+
+void maxFlow(vector&lt;vector&lt;Edge&gt;&gt;& graph, int s, int t) {
+    double flow = 0.0;
+    int n = graph.size();
+    while (true) {
+        vector&lt;bool&gt; visited(n, false);
+        double bottleneck = dfs(graph, s, t, INF, visited);
+        if (bottleneck &lt; eps) break;
+        flow += bottleneck;
+    }
+    cout &lt;&lt; "Max Flow: " &lt;&lt; flow &lt;&lt; endl;
+}
+
+void minCut(vector&lt;vector&lt;Edge&gt;&gt;& graph, vector&lt;int&gt;& S, int n) {
+    maxFlow(graph, n, n + 1);
+    vector&lt;bool&gt; visited(graph.size(), false);
+    stack&lt;int&gt; st;
+    st.push(n);
+    visited[n] = true;
+    while (!st.empty()) {
+        int v = st.top();
+        st.pop();
+        S.push_back(v);
+        for (Edge& e: graph[v]) {
+            if (!visited[e.dest] && e.capacity &gt; eps) {
+                visited[e.dest] = true;
+                st.push(e.dest);
+            }
+        }
+    }
+}
+
+void exact(int n, vector&lt;set&lt;int&gt; &gt;& adj, int h, vector&lt;vector&lt;int&gt;&gt;& hCliques, vector&lt;int&gt;& cliqueDegrees, vector&lt;vector&lt;int&gt;&gt;& delta, vector&lt;int&gt;& D, unordered_map&lt;int, int&gt;& mapping, unordered_map&lt;int, int&gt;& revMap) {
+    double l = 0.0;
+    double u = 0.0;
+    for (int i = 0; i &lt; n; i++) {
+        u = max(u, (double) cliqueDegrees[i]);
+    }
+    cout &lt;&lt; "inital parameters: " &lt;&lt; endl;
+    cout &lt;&lt; "l = " &lt;&lt; l &lt;&lt; " u = " &lt;&lt; u &lt;&lt; endl;
+    int numCliques = delta.size();
+    double val = (1.0/((double)n * (n - 1)));
+
+    cout &lt;&lt; "val is: " &lt;&lt; val &lt;&lt; endl;
+    while ((u - l) &gt;= val) {
+        cout &lt;&lt; "l is: " &lt;&lt; l &lt;&lt; " u is: " &lt;&lt; u &lt;&lt; endl;
+        double alpha = (l + u) / 2.0;
+        cout &lt;&lt; "Alpha is: " &lt;&lt; alpha &lt;&lt; endl;
+        int s = n;
+        int t = n + 1;
+        int totalVertices = n + 2 + numCliques;
+        vector&lt;vector&lt;Edge&gt;&gt; graph(totalVertices);
+        for (int i = 0; i &lt; n; i++) {
+            addEdge(graph, s, i, (double) cliqueDegrees[i]);
+            addEdge(graph, i, t, alpha * (double) h);
+        }
+        for (int i = 0; i &lt; numCliques; i++) {
+            for (auto x: delta[i]) {
+                addEdge(graph, (n + 2 + i), x, (double) INF);
+            }
+        }
+        for (int i = 0; i &lt; numCliques; i++) {
+            for (int v = 0; v &lt; n; v++) {
+                int flag = 1;
+                for (auto x: delta[i]) {
+                    if (adj[x].find(v) == adj[x].end()) {
+                        flag = 0;
+                        break;
+                    }
+                }
+                if (flag == 1) {
+                    addEdge(graph, v, (n + 2 + i), 1.0);
+                }
+            }
+        }
+        vector&lt;int&gt; S;
+        minCut(graph, S, n);
+        cout &lt;&lt; endl;
+        if (S.size() == 1 && S[0] == n) {
+            u = alpha;
+        } else {
+            l = alpha;
+            D.clear();
+            for (auto x: S) {
+                if (x &lt; n) D.push_back(x);
+            }
+        }
+    }
+
+
+}
+
+int main(int argc, char* argv[]) {
+    if (argc &lt; 2) {
+        cerr &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; " &lt;input_file&gt;" &lt;&lt; endl;
+        return 1;
+    }
+    auto start = chrono::high_resolution_clock::now();
+    string filename = argv[1];
+    vector&lt;set&lt;int&gt;&gt; adj;
+    int n, m, h;
+    ifstream infile(filename);
+    if (!infile) {
+        cerr &lt;&lt; "Error opening file: " &lt;&lt; filename &lt;&lt; endl;
+        exit(1);
+    }
+
+    infile &gt;&gt; h;       
+    infile &gt;&gt; n &gt;&gt; m; 
+    unordered_map&lt;int, int&gt; map_input_to_internal;
+    unordered_map&lt;int, int&gt; rev_map;
+    int next_id = 0;
+
+    adj.resize(n);  
+
+    int u, v;
+    for (int i = 0; i &lt; m; ++i) {
+        infile &gt;&gt; u &gt;&gt; v;
+        if (u != v) {
+            if (map_input_to_internal.find(u) == map_input_to_internal.end()) {
+                map_input_to_internal[u] = next_id++;
+            }
+            if (map_input_to_internal.find(v) == map_input_to_internal.end()) {
+                map_input_to_internal[v] = next_id++;
+            }
+
+            int u_internal = map_input_to_internal[u];
+            int v_internal = map_input_to_internal[v];
+
+            adj[u_internal].insert(v_internal);
+            adj[v_internal].insert(u_internal);
+        }
+    }
+    cout &lt;&lt; "n is: " &lt;&lt; n &lt;&lt; endl;
+    cout &lt;&lt; "m is: " &lt;&lt; m &lt;&lt; endl;
+
+    infile.close();
+
+    vector&lt;int&gt; degeneracyOrder(n, -1);
+    int degeneracy = getDegeneracy(adj, degeneracyOrder, n);
+    vector&lt;int&gt; R;
+    unordered_set&lt;int&gt; completed;
+    vector&lt;vector&lt;int&gt;&gt; hCliques;
+    vector&lt;int&gt; cliqueDegrees(n);
+    for (int t = 0; t &lt; n; t++) {
+        int i = degeneracyOrder[t];
+        vector&lt;int&gt; P;
+        vector&lt;int&gt; X;
+        for (auto x: adj[i]) {
+            if (completed.find(x) != completed.end()) {
+                X.push_back(x);
+            } else P.push_back(x);
+        }
+        R.push_back(i);
+        BronKerboschPivot(P, R, X, adj, n, h, hCliques, cliqueDegrees);
+        R.pop_back();
+        completed.insert(i);
+    }
+    cout &lt;&lt; "Found " &lt;&lt; hCliques.size() &lt;&lt; " hCliques:\n";
+    R.clear();
+    completed.clear();
+    vector&lt;vector&lt;int&gt;&gt; delta;
+    vector&lt;int&gt; temp(n);
+    for (int t = 0; t &lt; n; t++) {
+        int i = degeneracyOrder[t];
+        vector&lt;int&gt; P;
+        vector&lt;int&gt; X;
+        for (auto x: adj[i]) {
+            if (completed.find(x) != completed.end()) {
+                X.push_back(x);
+            } else P.push_back(x);
+        }
+        R.push_back(i);
+        BronKerboschPivot(P, R, X, adj, n, h - 1, delta, temp);
+        R.pop_back();
+        completed.insert(i);
+    }
+    cout &lt;&lt; "Found " &lt;&lt; delta.size() &lt;&lt; " h - 1 Cliques\n";
+    vector&lt;int&gt; D;
+    unordered_map&lt;int, int&gt; mapping;
+    unordered_map&lt;int, int&gt; revMap;
+    exact(n, adj, h, hCliques, cliqueDegrees, delta, D, mapping, revMap);
+    cout &lt;&lt; D.size() &lt;&lt; endl;
+    vector&lt;int&gt; inD(n, 0);
+    cout &lt;&lt; "D: " &lt;&lt; endl;
+    for (auto x: D) {
+        inD[x] = 1;
+        cout &lt;&lt; x &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+    int count_cliques = 0;
+    for (int i = 0; i &lt; hCliques.size(); i++) {
+        int flag = 0;
+        for (auto x: hCliques[i]) {
+            if (inD[x] == 0) {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) count_cliques++;
+    }
+    auto end = chrono::high_resolution_clock::now();
+    cout &lt;&lt; "CDS Density: " &lt;&lt; (((double) count_cliques) / (double) D.size()) &lt;&lt; endl;
+    cout &lt;&lt; "Number of cliques: " &lt;&lt; count_cliques &lt;&lt; endl;
+    cout &lt;&lt; "Number of vertices: " &lt;&lt; D.size() &lt;&lt; endl;
+    chrono::duration&lt;double&gt; duration = end - start;
+    cout &lt;&lt; "Time taken by algorithm: " &lt;&lt; duration.count() &lt;&lt; " seconds" &lt;&lt; endl;
+    return 0;
+}
+
+</code>
+</pre>
+
+
+
+
+
+<script>
+  // Common data
+  const datasets = ["CAIDA AS", "AS-733", "ca-HepTh", "Netscience"];
+
+  // Different runtimes for each h
+  const runtimes_h3 = [2125.04, 13.40, 33.30, ];
+  const runtimes_h4 = [3000.5, 18.19, 64.88, 1.32];
+  const runtimes_h5 = [4000.7, 32.65, 744.83, 3.45];
+
+  function createPlot(divId, runtimes) {
+    const data = [
+      {
+        x: datasets,
+        y: runtimes,
+        type: "bar",
+        marker: {
+          color: "blue",
+        },
+      },
+    ];
+
+    const layout = {
+      title: "",  // Title is handled separately above the div
+      xaxis: {
+        title: "Dataset Name",
+        tickangle: -45,
+      },
+      yaxis: {
+        title: "Runtime (s)",
+      },
+      margin: { b: 100, t: 50 },
+    };
+
+    Plotly.newPlot(divId, data, layout);
+  }
+
+  // Create the three plots
+  createPlot("runtimeBarChart3", runtimes_h3);
+  createPlot("runtimeBarChart4", runtimes_h4);
+  createPlot("runtimeBarChart5", runtimes_h5);
+</script>
+
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+

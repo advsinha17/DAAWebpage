@@ -1,0 +1,955 @@
+---
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Enumeration of Maximal Cliques</title>
+    <meta name="generator" content="Jekyll v4.4.1" />
+    <meta property="og:title" content="Enumeration of Maximal Cliques" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://advsinha17.github.io/DAAPage/" />
+    <meta property="og:url" content="https://advsinha17.github.io/DAAPage/" />
+    <meta property="og:site_name" content="Enumeration of Maximal Cliques" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Enumeration of Maximal Cliques" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "headline": "Enumeration of Maximal Cliques",
+        "name": "Enumeration of Maximal Cliques",
+        "url": "https://advsinha17.github.io/DAAPage/"
+      }
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/DAAPage/assets/main.css" />
+    <link
+      type="application/atom+xml"
+      rel="alternate"
+      href="https://advsinha17.github.io/DAAPage/feed.xml"
+      title="Enumeration of Maximal Cliques"
+    />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/DAAPage/"
+          >Design and Analysis of Algorithms - Assignment 1</a
+        >
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path
+                  d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger"></div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home">
+          <!-- # Enumeration of Maximal Cliques
+
+The following 3 algorithms were implemented to enumerate the maximal cliques in a graph:
+
+- [Bron Kerbosch Algorithm](/bka)
+- [Chiba](/chiba)
+- [Tomita](/tomita) -->
+
+          <br />
+          <br />
+          <br />
+
+          <div align="center" class="container">
+            <img src="cliques.png" alt="Site Logo" class="logo" width="100px" />
+          </div>
+
+          <h1 style="font-size: 3rem" align="center">
+            Enumeration of Maximal Cliques
+          </h1>
+          <hr style="border: 0.5px solid #ddd; margin: 10px 0" />
+          <nav class="menu">
+            <ul
+              style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAPage/"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Problem Statement</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAPage/bka"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Bron-Kerbosch</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAPage/chiba"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Chiba</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAPage/tomita"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Tomita</a
+                >
+              </li>
+              <li style="display: inline; margin: 0 10px">|</li>
+              <li style="display: inline; margin: 0 10px">
+                <a
+                  href="/DAAPage/datasets"
+                  style="text-decoration: none; font-weight: semi-bold"
+                  >Datasets</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <hr style="border: 0.5px solid #ddd; margin: 10px 0" />
+
+          <br />
+          <br />
+          <br />
+
+          <h1 align="center">Chiba Algorithm</h1>
+          <p align="center" style="padding-left: 1rem; padding-top: 5px">
+            📁
+            <a
+              href="https://www.cs.cornell.edu/courses/cs6241/2019sp/readings/Chiba-1985-arboricity.pdf"
+              >Paper Link</a
+            >
+          </p>
+          <h2 align="center">Algorithm Description</h2>
+
+          <p class="algoText" align="center">
+            The arboricity and subgraph listing algorithm by
+            <a
+              href="https://www.cs.cornell.edu/courses/cs6241/2019sp/readings/Chiba-1985-arboricity.pdf"
+              >Chiba et. al.</a
+            >
+            gives an efficient method to enumerate maximal cliques by using the
+            arboricity of a graph. The arboricity of a graph is the minimum
+            number of disjoint forests whose union encompasses all the edges of
+            a graph. The algorithm uses a maximality test to ensure that the
+            candidate of a new clique is a clique. It also uses the lexico test
+            which avoids duplicates by checking whether a candidate is
+            lexicographically the largest clique.
+            <br /><br />
+            The algorithm orders the vertices based on degree and iterates over
+            each of the vertices to extend into forming cliques. The algorithm
+            calls an update method recursively in which it extends a vertex and
+            performs the maximality and lexico test.
+            <br /><br />
+            The algorithm maintains a set <i>C</i> which stores the vertices of
+            the current clique. Let <i>G<sub>i</sub></i> be the subgraph of
+            <i>G</i> induced by the vertices <i>1, 2,..., i</i>. The algorithm
+            attempts to generate a new clique of <i>G<sub>i</sub></i> from a
+            clique <i>C</i> of <i>G<sub>i - 1</sub></i
+            >. <br /><br />
+            The algorithm begins by sorting all the vertices increasing order of
+            their degrees. <i>C</i> is then initialized as a set with the value
+            <i>1</i> (the unique clique of <i>G<sub>1</sub></i
+            >). It then calls the UPDATE method of the algorithm with the value
+            2 and the set <i>C</i>. The update method computes
+            <i>C - N(i)</i> and if it is not empty, it recursively calls the
+            update method of the algorithm with value <i>i + 1</i>. Once this
+            call returns, the original call computes the values of
+            <i>T[y]</i> and <i>S[y]</i> to prepare for the lexico and maximality
+            tests. It maintains a flag variable, and if either of the tests
+            fail, this variable is set to <i>false</i>. <br /><br />
+            It then reinitializes the values of <i>S</i> and <i>T</i> for the
+            next recursive call. If the flag is set to <i>true</i>, it then
+            saves the value of <i>C - N(i)</i>, sets <i>C</i> to
+            <i>(C ∩ N(i)) ∪ {i}</i> and makes a recursive call for
+            <i>i + 1</i> and <i>C</i>. Once the call returns, the value of
+            <i>C</i> is restored. The pseudocode for the Chiba algorithm is as
+            follows:
+          </p>
+          <pre class="codeBlock">
+            <code>
+procedure CLIQUE;
+  procedure UPDATE (i, C)
+    begin
+    if i = n + 1
+      then print out a new clique C
+    else
+      begin
+        if C - N(i) ≠ Φ  then UPDATE (i + 1, C);
+        {prepare for tests}
+        {compute T[y] = |N(y) ∩ C ∩ N(i)| for y ∈ V - C - {i}}
+        for each vertex x ∈ C ∩ N(i)
+          do for each vertex y ∈ N(x) - C - {i}
+            do T[y] := T[y] + 1;
+        {compute S[y] = |N(y) ∩ (C - N(i))| for y ∈ V - C}
+        for each vertex x ∈ C - N(i)
+          do for each vertex y ∈ N(x) - C
+            do S[y] := S[y] + 1;
+        FLAG := true;
+        {maximality test}
+        if there exists a vertex y ∈ N(i) - C such that y < i and T[y] = |C ∩ N(i)|
+          then FLAG := false {(C ∩ N(i)) U {i} is not a clique of G<sub>i</sub>}
+        {lexico. test}
+        sort all the vertices in C - N(i) in ascending order j<sub>1</sub> < j<sub>2</sub> < ... < j<sub>p</sub>, where
+          p = |C - N(i)|;
+        {case S(y) >= 1.}
+        for k := 1 to p
+          do for each vertex y ∈ N(j<sub>k</sub>) - C such that y < i and T[y]= |C ∩ N(i)|
+            do if y >= j<sub>k</sub>
+              then S[y] := S[y] - 1; {alter S[y] to S(y)}
+            else
+              if j<sub>k</sub> is the first vertex which satisfies y < j<sub>k</sub>
+                then {S[y] = S(y)}
+                if (S[y] + k < p) and (y >= j - 1) {j<sub>0</sub> = 0}
+                  then FLAG := false; {C is not lexico. largest}      
+        {case S(y) 0}
+        if C ∩ N(i) ≠ Φ
+          then for each vertex y ∉ C ∩ N(i) such that y < i, T[y] = |C ∩ N(i)| and S[y] = 0
+            do if j<sub>p</sub> < y then FLAG := false; {C is not lexico. largest}
+        else if j<sub>p</sub> < i - 1 then FLAG := false; {C is not lexico. largest}
+        {reinitialize S and T}
+        for each vertex x ∈ C ∩ N(i)
+          do for each vertex y ∈ N(x) - C - {i}
+            do T[y] := 0;
+        for each vertex x ∈ C - N(i)
+          do for each vertex y ∈ N(x) - C
+            do S[y] := 0;
+        {FLAG is true if and only if (C ∩ N(i)) U N(i) is a clique of 
+          G<sub>i</sub> and C is the lexicographically largest clique of G<sub>i - 1</sub> containing C ∩ N(i).}
+        if FLAG
+          then
+          begin
+            SAVE := C- N(i);
+            C := (C ∩ N(i)) ∪ {i};
+            UPDATE (i + 1, C);
+            C := (C- {i}) ∪ SAVE;
+        end
+      end
+    end;
+begin {of CLIQUE}
+number the vertices of a given graph G in such a way that d(1) ≤ d(2) ≤ ... ≤ d(n);
+for i := 1 to n {initialize S and T}
+  do begin S[i] := 0; T[i] := 0 end;
+C := {1};
+UPDATE (2, C)
+end {of CLIQUE};
+            </code>
+          </pre>
+          <p class="algoText" align="center">
+            <b>Time Complexity of the Algorithm:</b> <i>O(a(G)m)</i>, where
+            <i>m</i> is the number of edges of a graph, and a(G) is the
+            arboricity of the graph G.
+          </p>
+          <br />
+          <h2 class="experimental" align="center">
+            Implementation details and Experimental Observations
+          </h2>
+          <p class="algoText" align="center">
+            The algorithm was run on an M1 MacBook Air with 16GB RAM and using
+            the -O3 optimization flag during compilation. The algorithm was run
+            on the Enron email network and the Wikipedia vote network datasets.
+            Due to the large size of the dataset, and the large number of
+            recursive calls made by the algorithm, we were unable to run the
+            algorithm for the Autonomous systems by Skitter dataset. Further,
+            running the recursive version of the algorithm for the Email Enron
+            and Skitter datasets were causing stack overflows. To overcome this
+            for Email Enron, we increased the stack space to 256MB before
+            running the algorithm. For the skitter dataset, however, even
+            allocating 3GB of stack space proved to be inefficient. Thus, we
+            converted the recursive code to an equivalent iterative solution,
+            allowing us to run the algorithm without stack overflows. However,
+            the algorithm was very slow for the skitter dataset, finding only
+            151,580 cliques out of 37,322,355 cliques after 9 hours and 15
+            minutes. The Email enron network took
+            <b>458 seconds</b>, and the Wikipedia vote network took
+            <b>306 seconds</b> to run the algorithm.<br /><br />
+          </p>
+          <div class="container">
+            <div id="runtimeBarChart"></div>
+          </div>
+          <p class="algoText" style="padding-bottom: 40px" align="center">
+            The graph was stored as an adjacency list using a vector of sets, to
+            allow for efficient search of neighbors of a vertex. We tried both
+            unordered sets and vectors to store the set <i>C</i>. In an
+            unordered set, we noticed that as the testcase became larger, the
+            number of collisions increased, leading to poor performance while
+            searching for elements. Hence, we made use of a 0/1 hash set to
+            efficiently search for elements in C. <br /><br />
+
+            To overcome the stack overflow issue, we also converted the
+            recursive algorithm to an iterative one. In an attempt to optimize
+            the algorithm to run on the skitter dataset, we made use of unique
+            pointers, and move semantics in C++ to minimize the number of copy
+            operations performed. Despite these optimizations, we were unable to
+            run the skitter dataset for this algorithm.
+          </p>
+          <h2 class="experimental" align="center">
+            Recursive Algorithm Implementation
+          </h2>
+          <p align="center">
+            🔗 The algorithm implementation and execution instructions can be
+            found
+            <a
+              href="https://github.com/advsinha17/DAA-Assignments/tree/master/Assignment1"
+              >here</a
+            >.
+          </p>
+          <pre class="codeBlock">
+            <code>
+#include &lt;stdio.h&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;unordered_map&gt;
+#include &lt;unordered_set&gt;
+#include &lt;set&gt;
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;sys/resource.h&gt; 
+#include &lt;cstring&gt;        
+#include &lt;cerrno&gt;      
+using namespace std;
+
+void increaseStackSize(size_t stackSize) {
+    struct rlimit rl;
+    rl.rlim_cur = stackSize;
+    rl.rlim_max = stackSize;
+
+    if (setrlimit(RLIMIT_STACK, &rl) == -1) {
+        cerr &lt;&lt; "Failed to set stack size: " &lt;&lt; strerror(errno) &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Stack size increased to " &lt;&lt; stackSize &lt;&lt; " bytes." &lt;&lt; endl;
+    }
+}
+
+long long count_cliques = 0;
+long long max_size = 0;
+
+void update(vector&lt;int&gt;& CHash, vector&lt;int&gt;& C, int i, int n, vector&lt;set&lt;int&gt; &gt;& adj, vector&lt;int&gt;& T, vector&lt;int&gt;& S, unordered_map&lt;int, int&gt;& mp, unordered_map&lt;int, int&gt;& distribution) {
+    if (i == n) {
+        count_cliques++;
+        max_size = max(max_size, (long long)C.size());
+        distribution[(int)C.size()]++;
+        return;
+    } 
+    vector&lt;int&gt; CMinusN;
+    vector&lt;int&gt; NMinusC;
+    vector&lt;int&gt; CintersectN;
+    for (auto x: adj[i]) {
+        if (CHash[x] == 0) NMinusC.push_back(x); 
+        else CintersectN.push_back(x);
+    }
+    for (auto x: C) {
+        if (adj[i].find(x) == adj[i].end()) CMinusN.push_back(x);
+    }
+    if (!CMinusN.empty()) update(CHash, C, i + 1, n, adj, T, S, mp, distribution);
+    int cmnSize = CMinusN.size();
+    int nmcSize = NMinusC.size();
+    int cinSize = CintersectN.size();
+    for (auto x: CintersectN) {
+        for (auto y: adj[x]) {
+            if (CHash[y] == 0 && y != i) {
+                T[y]++;
+            } 
+        }
+    }
+    for (auto x: CMinusN) {
+        for (auto y: adj[x]) {
+            if (CHash[y] == 0) {
+                S[y]++;
+            }
+        }
+    }
+    bool flag = true;
+    for (auto y: NMinusC) {
+        if (y &lt; i && T[y] == cinSize) {
+            flag = false;
+            break;
+        } 
+    }
+    sort(CMinusN.begin(), CMinusN.end());
+    int p = cmnSize;
+    for (int k = 0; k &lt; p; k++) {
+        for (auto y: adj[CMinusN[k]]) {
+            if (CHash[y] == 0 && y &lt; i && T[y] == cinSize) {
+                if (y &gt;= CMinusN[k]) S[y]--;
+                else {
+                    if ((y &lt; CMinusN[k]) && (k == 0 || y &gt;= CMinusN[k - 1]) && (S[y] + k) == p) {
+                        flag = false;
+                    } 
+                }
+            }
+        }
+    }
+    if (flag) {
+        if (!CintersectN.empty()) {
+        for (int y = 0; y &lt; i; y++) {
+                if (CHash[y] == 0 && T[y] == cinSize && S[y] == 0) {
+                    if (cmnSize == 0 || CMinusN.back() &lt; y) {
+                        flag = false;
+                        break;
+                    } 
+                }
+            }
+        } else if (cmnSize == 0 || CMinusN.back() &lt; i - 1) flag = false;
+    }
+
+
+    for (auto x: CintersectN) {
+        for (auto y: adj[x]) {
+            if (CHash[y] == 0 && y != i) {
+                T[y] = 0;
+            } 
+        }
+    }
+    for (auto x: CMinusN) {
+        for (auto y: adj[x]) {
+            if (CHash[y] == 0) {
+                S[y] = 0;
+            }
+        }
+    }
+    if (flag) {
+        for (auto x: C) CHash[x] = 0;
+        C.clear();
+        for (auto x: CintersectN) {
+            C.push_back(x);
+            CHash[x] = 1;
+        } 
+        C.push_back(i);
+        CHash[i] = 1;
+        update(CHash, C, i + 1, n, adj, T, S, mp, distribution);
+        auto it = find(C.begin(), C.end(), i);
+        if (it != C.end()) C.erase(it);
+        CHash[i] = 0;
+        for (auto x: CMinusN) {
+            CHash[x] = 1;
+            C.push_back(x);
+        } 
+    }
+}
+
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        printf("Correct Usage: %s &lt;dataFilePath&gt;\n", argv[0]);
+        exit(1);
+    }
+    auto start = chrono::high_resolution_clock::now();
+    string filename = argv[1];
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cerr &lt;&lt; "Error opening file" &lt;&lt; endl;
+        return 1;
+    }
+
+    string line;
+    int n = 0, m = 0;
+    vector&lt;set&lt;int&gt;&gt; adj;
+    vector&lt;int&gt; degrees;
+    unordered_map&lt;int, int&gt; vertexMap;
+    int nextIndex = 0;
+
+    while (getline(infile, line)) {
+        if (line.empty() || line[0] == '#') {
+            if (line.find("Nodes:") != string::npos) {
+                size_t pos = line.find("Nodes:");
+                if (pos != string::npos) {
+                    n = stoi(line.substr(pos + 7));
+                }
+            }
+            if (line.find("Edges:") != string::npos) {
+                size_t pos = line.find("Edges:");
+                if (pos != string::npos) {
+                    m = stoi(line.substr(pos + 7));
+                }
+            }
+            continue;
+        }
+        
+        if (n == 0 || m == 0) {
+            continue;
+        }
+        
+        if (adj.size() &lt; n) {
+            adj.resize(n);
+            degrees.resize(n, 0);
+        }
+        
+        istringstream iss(line);
+        int u, v;
+        if (!(iss &gt;&gt; u &gt;&gt; v)) {
+            continue;
+        }
+        if (vertexMap.find(u) == vertexMap.end()) {
+            vertexMap[u] = nextIndex;
+            nextIndex++;
+        }
+        if (vertexMap.find(v) == vertexMap.end()) {
+            vertexMap[v] = nextIndex;
+            nextIndex++;
+        }
+        int mappedU = vertexMap[u];
+        int mappedV = vertexMap[v];
+
+        adj[mappedU].insert(mappedV);
+        adj[mappedV].insert(mappedU);
+    }
+
+    for (int i = 0; i &lt; n; i++) {
+        degrees[i] = adj[i].size();
+    }
+
+    infile.close();
+    vector&lt;pair&lt;int, int&gt; &gt; toSort;
+    for (int i = 0; i &lt; n; i++) {
+        toSort.push_back({degrees[i], i});
+    }
+    sort(toSort.begin(), toSort.end());
+    unordered_map&lt;int, int&gt; mp;
+    unordered_map&lt;int, int&gt; rev_mp;
+    for (int i = 0; i &lt; n; i++) {
+        mp[i] = toSort[i].second;
+        rev_mp[toSort[i].second] = i;
+    }
+    vector&lt;set&lt;int&gt; &gt; mappedAdj(n);
+    for (int i = 0; i &lt; n; i++) {
+        int originalVertex = mp[i];
+        for (int neighbor : adj[originalVertex]) {
+            mappedAdj[i].insert(rev_mp[neighbor]);
+        }
+    }
+    vector&lt;int&gt; S(n, 0);
+    vector&lt;int&gt; T(n, 0);
+    vector&lt;int&gt; C;
+    int v = 0;
+    while (toSort[v].first == 0) {
+        v++;
+        count_cliques++;
+    } 
+    C.push_back(v);
+    unordered_map&lt;int, int&gt; distribution;
+    vector&lt;int&gt; CHash(n, 0);
+    CHash[v] = 1;
+    increaseStackSize((size_t)3072 * (size_t)1024 * (size_t)1024);
+
+    update(CHash, C, v + 1, n, mappedAdj, T, S, mp, distribution);
+    cout &lt;&lt; "Number of cliques: " &lt;&lt; count_cliques &lt;&lt; endl;
+    cout &lt;&lt; "Size of largest maximal clique: " &lt;&lt; max_size &lt;&lt; endl;
+    auto end = chrono::high_resolution_clock::now();
+        cout &lt;&lt; endl;
+    cout &lt;&lt; "Distribution of clique sizes:" &lt;&lt; endl;
+    cout &lt;&lt; "Size Number of cliques" &lt;&lt; endl;
+    for (auto x: distribution) {
+        cout &lt;&lt; x.first &lt;&lt; "    " &lt;&lt; x.second &lt;&lt; endl;
+    }
+    cout &lt;&lt; endl;
+
+    chrono::duration&lt;double&gt; duration = end - start;
+    cout &lt;&lt; "Time taken by algorithm: " &lt;&lt; duration.count() &lt;&lt; " seconds" &lt;&lt; endl;
+    return 0;
+
+}
+</code>
+              </pre>
+          <h2 class="experimental" align="center">
+            Iterative Algorithm Implementation
+          </h2>
+          <p align="center">
+            🔗 The algorithm implementation and execution instructions can be
+            found
+            <a
+              href="https://github.com/advsinha17/DAA-Assignments/tree/master/Assignment1"
+              >here</a
+            >.
+          </p>
+          <pre class="codeBlock">
+            <code>
+#include &lt;stdio.h&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;unordered_map&gt;
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;unordered_set&gt;
+#include &lt;set&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+long long count_cliques = 0;
+long long max_size = 0;
+
+
+struct State {
+    int i;
+    int val;
+    unique_ptr&lt;vector&lt;int&gt;&gt; CMinusN;
+    unique_ptr&lt;vector&lt;int&gt;&gt; NMinusC;
+    unique_ptr&lt;vector&lt;int&gt;&gt; CintersectN;
+};
+
+void update(vector&lt;int&gt; &CHash, vector&lt;int&gt;& C, int v, int n, vector&lt;set&lt;int&gt;&gt;& adj, vector&lt;int&gt;& T, vector&lt;int&gt;& S, unordered_map&lt;int, int&gt;& mp, unordered_map&lt;int, int&gt;& distribution) {
+    stack&lt;State&gt; st;
+
+    State initialState;
+    initialState.i = v;
+    initialState.val = 0;
+    initialState.CMinusN = make_unique&lt;vector&lt;int&gt;&gt;();
+    initialState.NMinusC = make_unique&lt;vector&lt;int&gt;&gt;();
+    initialState.CintersectN = make_unique&lt;vector&lt;int&gt;&gt;();
+    st.push(std::move(initialState));
+
+    while (!st.empty()) {
+        State s = std::move(st.top());
+        int i = s.i;
+        st.pop();
+
+        if (i == n) {
+            count_cliques++;
+            max_size = max(max_size, (long long)C.size());
+            distribution[(int)C.size()]++;
+            // cout &lt;&lt; "found clique " &lt;&lt; count_cliques &lt;&lt; endl;
+            continue;
+        }
+
+        if (s.val == 0) {
+            auto CMinusN = make_unique&lt;vector&lt;int&gt;&gt;();
+            auto NMinusC = make_unique&lt;vector&lt;int&gt;&gt;();
+            auto CintersectN = make_unique&lt;vector&lt;int&gt;&gt;();
+
+            for (auto x: adj[i]) {
+                if (CHash[x] == 0) NMinusC-&gt;push_back(x);
+                else CintersectN-&gt;push_back(x);
+            }
+
+            for (auto x: C) {
+                if (adj[i].find(x) == adj[i].end()) CMinusN-&gt;push_back(x);
+            }
+
+            int cmnSize = CMinusN-&gt;size();
+            s.CMinusN = std::move(CMinusN);
+            s.NMinusC = std::move(NMinusC);
+            s.CintersectN = std::move(CintersectN);
+
+            if (cmnSize != 0) {
+                s.val = 1;
+                st.push(std::move(s));
+                State nextState;
+                nextState.i = i + 1;
+                nextState.val = 0;
+                nextState.CMinusN = make_unique&lt;vector&lt;int&gt;&gt;();
+                nextState.NMinusC = make_unique&lt;vector&lt;int&gt;&gt;();
+                nextState.CintersectN = make_unique&lt;vector&lt;int&gt;&gt;();
+                st.push(std::move(nextState));
+                continue;
+            }
+
+            s.val = 1;
+        }
+
+        if (s.val == 1) {
+            vector&lt;int&gt;& CMinusN = *s.CMinusN;
+            vector&lt;int&gt;& NMinusC = *s.NMinusC;
+            vector&lt;int&gt;& CintersectN = *s.CintersectN;
+
+            int cmnSize = CMinusN.size();
+            int nmcSize = NMinusC.size();
+            int cinSize = CintersectN.size();
+
+            for (auto x: CintersectN) {
+                for (auto y: adj[x]) {
+                    if (CHash[y] == 0 && y != i) T[y]++;
+                }
+            }
+
+            for (auto x: CMinusN) {
+                for (auto y: adj[x]) {
+                    if (CHash[y] == 0) S[y]++;
+                }
+            }
+
+            bool flag = true;
+            for (auto y: NMinusC) {
+                if (y &lt; i && T[y] == cinSize) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            sort(CMinusN.begin(), CMinusN.end());
+            int p = cmnSize;
+            for (int k = 0; k &lt; p; k++) {
+                for (auto y: adj[CMinusN[k]]) {
+                    if (CHash[y] == 0 && y &lt; i && T[y] == cinSize) {
+                        if (y &gt;= CMinusN[k]) S[y]--;
+                        else {
+                            if ((y &lt; CMinusN[k]) && (k == 0 || y &gt;= CMinusN[k - 1]) && (S[y] + k) == p) {
+                                flag = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (flag) {
+                if (!CintersectN.empty()) {
+                    for (int y = 0; y &lt; i; y++) {
+                        if (CHash[y] == 0 && T[y] == cinSize && S[y] == 0) {
+                            if (cmnSize == 0 || CMinusN.back() &lt; y) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                } else if (cmnSize == 0 || CMinusN.back() &lt; i - 1) flag = false;
+            }
+
+            for (auto x: CintersectN) {
+                for (auto y: adj[x]) {
+                    if (CHash[y] == 0 && y != i) {
+                        T[y] = 0;
+                    }
+                }
+            }
+
+            for (auto x: CMinusN) {
+                for (auto y: adj[x]) {
+                    if (CHash[y] == 0) {
+                        S[y] = 0;
+                    }
+                }
+            }
+
+            if (flag) {
+                s.val = 2;
+                for (auto x: CMinusN) {
+                    if (CHash[x] == 1) {
+                        CHash[x] = 0;
+                        auto it = find(C.begin(), C.end(), x);
+                        if (it != C.end()) C.erase(it);
+                    }
+                }
+
+                if (CHash[i] == 0) {
+                    CHash[i] = 1;
+                    C.push_back(i);
+                }
+
+                st.push(std::move(s));
+                State nextState;
+                nextState.i = i + 1;
+                nextState.val = 0;
+                nextState.CMinusN = make_unique&lt;vector&lt;int&gt;&gt;();
+                nextState.NMinusC = make_unique&lt;vector&lt;int&gt;&gt;();
+                nextState.CintersectN = make_unique&lt;vector&lt;int&gt;&gt;();
+                st.push(std::move(nextState));
+                continue;
+            }
+        }
+
+        if (s.val == 2) {
+            if (CHash[i]) {
+                CHash[i] = 0;
+                auto it = find(C.begin(), C.end(), i);
+                if (it != C.end()) C.erase(it);
+            }
+
+            vector&lt;int&gt;& CMinusN = *s.CMinusN;
+            for (auto x: CMinusN) {
+                if (CHash[x] == 0) {
+                    CHash[x] = 1;
+                    C.push_back(x);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        printf("Correct Usage: %s &lt;dataFilePath&gt;\n", argv[0]);
+        exit(1);
+    }
+    auto start = chrono::high_resolution_clock::now();
+    string filename = argv[1];
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cerr &lt;&lt; "Error opening file" &lt;&lt; endl;
+        return 1;
+    }
+
+    string line;
+    int n = 0, m = 0;
+    vector&lt;vector&lt;int&gt;&gt; adj;
+    vector&lt;int&gt; degrees;
+    unordered_map&lt;int, int&gt; vertexMap;
+    int nextIndex = 0;
+
+    while (getline(infile, line)) {
+        if (line.empty() || line[0] == '#') {
+            if (line.find("Nodes:") != string::npos) {
+                size_t pos = line.find("Nodes:");
+                if (pos != string::npos) {
+                    n = stoi(line.substr(pos + 7));
+                }
+            }
+            if (line.find("Edges:") != string::npos) {
+                size_t pos = line.find("Edges:");
+                if (pos != string::npos) {
+                    m = stoi(line.substr(pos + 7));
+                }
+            }
+            continue;
+        }
+        
+        if (n == 0 || m == 0) {
+            continue;
+        }
+        
+        if (adj.size() &lt; n) {
+            adj.resize(n);
+            degrees.resize(n, 0);
+        }
+        
+        istringstream iss(line);
+        int u, v;
+        if (!(iss &gt;&gt; u &gt;&gt; v)) {
+            continue;
+        }
+        if (vertexMap.find(u) == vertexMap.end()) {
+            vertexMap[u] = nextIndex;
+            nextIndex++;
+        }
+        if (vertexMap.find(v) == vertexMap.end()) {
+            vertexMap[v] = nextIndex;
+            nextIndex++;
+        }
+        int mappedU = vertexMap[u];
+        int mappedV = vertexMap[v];
+
+        adj[mappedU].push_back(mappedV);
+        adj[mappedV].push_back(mappedU);
+
+    }
+    infile.close();
+
+    for (int i = 0; i &lt; n; i++) {
+        degrees[i] = adj[i].size();
+    }
+    vector&lt;pair&lt;int, int&gt; &gt; toSort;
+    for (int i = 0; i &lt; n; i++) {
+        toSort.push_back({degrees[i], i});
+    }
+    sort(toSort.begin(), toSort.end());
+    unordered_map&lt;int, int&gt; mp;
+    unordered_map&lt;int, int&gt; rev_mp;
+    for (int i = 0; i &lt; n; i++) {
+        mp[i] = toSort[i].second;
+        rev_mp[toSort[i].second] = i;
+    }
+    vector&lt;set&lt;int&gt; &gt; mappedAdj(n);
+    for (int i = 0; i &lt; n; i++) {
+        int originalVertex = mp[i];
+        for (int neighbor : adj[originalVertex]) {
+            mappedAdj[i].insert(rev_mp[neighbor]);
+        }
+    }
+    vector&lt;int&gt; S(n, 0);
+    vector&lt;int&gt; T(n, 0);
+    unordered_map&lt;int, int&gt; distribution;
+    vector&lt;int&gt; C;
+    int v = 0;
+    while (toSort[v].first == 0) {
+        v++;
+        count_cliques++;
+    }
+    C.push_back(v);
+    vector&lt;int&gt; CHash(n, 0);
+    CHash[v] = 1;
+    update(CHash, C, v + 1, n, mappedAdj, T, S, mp, distribution);
+    cout &lt;&lt; "Number of cliques: " &lt;&lt; count_cliques &lt;&lt; endl;
+    cout &lt;&lt; "Size of largest maximal clique: " &lt;&lt; max_size &lt;&lt; endl;
+    auto end = chrono::high_resolution_clock::now();
+    cout &lt;&lt; endl;
+    cout &lt;&lt; "Distribution of clique sizes:" &lt;&lt; endl;
+    cout &lt;&lt; "Size Number of cliques" &lt;&lt; endl;
+    for (auto x: distribution) {
+        cout &lt;&lt; x.first &lt;&lt; "    " &lt;&lt; x.second &lt;&lt; endl;
+    }
+    cout &lt;&lt; endl;
+
+    chrono::duration&lt;double&gt; duration = end - start;
+    cout &lt;&lt; "Time taken by algorithm: " &lt;&lt; duration.count() &lt;&lt; " seconds" &lt;&lt; endl;
+    return 0;
+
+}
+</code>
+          </pre>
+          <script>
+            const datasets = ["Enron Email", "Wikipedia vote"];
+
+            const runtimes = [458, 306];
+
+            const data = [
+              {
+                x: datasets,
+                y: runtimes,
+                type: "bar",
+                marker: {
+                  color: "blue",
+                },
+              },
+            ];
+
+            const layout = {
+              title: "Runtime by Dataset",
+              xaxis: {
+                title: "Dataset Name",
+                tickangle: -45,
+              },
+              yaxis: {
+                title: "Runtime (s)",
+                titlefont: { size: 14 },
+              },
+              margin: { b: 200, t: 150 },
+            };
+
+            Plotly.newPlot("runtimeBarChart", data, layout);
+          </script>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
